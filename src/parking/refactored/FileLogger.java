@@ -1,9 +1,9 @@
-package parking;
+package parking.refactored;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileLogger {
+public class FileLogger implements Logger {
     private final String fileName;
 
     public FileLogger(String fileName) { this.fileName = fileName; }

@@ -1,5 +1,7 @@
 package parking;
 
+import parking.refactored.FileLogger;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
