@@ -1,6 +1,5 @@
 package parking.refactored;
 
-import parking.PaymentMethod;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,12 +10,13 @@ public class ParkingService {
     private double total;
     private ReportFormatter formater;
 
-    public ParkingService(double total,List<String> receipts,Logger logger){
+    public ParkingService(double total,List<String> receipts,Logger logger,ReportFormatter formater){
         this.total=total;
         this.receipts=receipts;
         this.logger=logger;
+        this.formater=formater;
     }
-    public void checkout(Tariff tariff,Vehicle vehicle ,int hours, PaymentMethod method)
+    public void checkout(Tariff tariff,Vehicle vehicle ,int hours, Payable method)
             throws IOException {
         double amount = tariff.fee(hours);
         method.pay(amount);
@@ -26,6 +26,15 @@ public class ParkingService {
         String receipt =formater.formatReceipt(vehicle,hours,amount,method);
         receipts.add(receipt);
         logger.log(receipt);
+    }
+    public void cancel(Tariff tariff,int hours, RefundablePayment method) {
+        double amount = tariff.fee( hours);
+        method.refund(amount);
+
+        total -= amount;
+    }
+    public double getTotal(){
+        return total;
     }
 
 }

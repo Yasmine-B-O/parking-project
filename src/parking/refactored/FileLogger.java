@@ -8,9 +8,13 @@ public class FileLogger implements Logger {
 
     public FileLogger(String fileName) { this.fileName = fileName; }
 
-    public void log(String line) throws IOException {
+    @Override
+    public void log(String line) {
         try (FileWriter fw = new FileWriter(fileName, true)) {   // append
             fw.write(line + System.lineSeparator());
+        } catch (IOException e) {
+           //handle the error here
+            System.err.println("Error writing to log file: " + e.getMessage());
         }
     }
 }

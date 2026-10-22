@@ -1,6 +1,5 @@
 package parking.refactored;
 
-import parking.PaymentMethod;
 
 public class CashPayment implements Payable {
 
